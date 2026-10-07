@@ -35,5 +35,16 @@ public class Carpeta {
 		this.subcarpetas.add(subcarpeta);
 	}
 	
+	public double calcularPesoTotal() {
+		double pesoTotal = 0;
+		for (Archivo a : this.getArchivos()) {
+			pesoTotal += a.getPesoMB();
+		}
+		for (Carpeta c : this.getSubcarpetas()) {
+			pesoTotal += c.calcularPesoTotal();
+		}
+		return pesoTotal;
+	}
+
 	
 }
