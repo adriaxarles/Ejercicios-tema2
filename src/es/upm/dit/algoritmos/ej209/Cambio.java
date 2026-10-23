@@ -9,7 +9,7 @@ public class Cambio {
 		int[] valores = { 1, 2, 5 };
 
 		// Sin un recuento por cada tipo de moneda no se puede calcular nada
-		if (monedas == null || monedas.length < valores.length) {
+		if (monedas == null || monedas.length != valores.length) {
 			return 0;
 		}
 
@@ -19,7 +19,7 @@ public class Cambio {
 
 	// Para evitar contar permutaciones (ej: 1+2 y 2+1) como distintas, usamos un
 	// método auxiliar que impone un orden en el uso de monedas
-	private static int contarAux(int objetivo, int[] cantidades, int[] valores, int indiceMoneda) {
+	private static int contarAux(int objetivo, int[] monedas, int[] valores, int indiceMoneda) {
 		// Casos base
 		if (objetivo == 0)
 			return 1; // Solución encontrada, ya tenemos 1 forma
@@ -29,7 +29,7 @@ public class Cambio {
 			return 0; // No quedan tipos de monedas para probar
 
 		int valorActual = valores[indiceMoneda]; // Guardamos la moneda con la que vamos a trabajar
-		int cantidadDisponible = cantidades[indiceMoneda];
+		int cantidadDisponible = monedas[indiceMoneda];
 		int formas = 0;
 
 		// Probamos a usar desde 0 hasta cantidadDisponible monedas de este tipo
@@ -42,7 +42,7 @@ public class Cambio {
 
 			// Llamada recursiva con el objetivo restante y pasando al siguiente tipo de moneda
 			// Pasamos cantidades tal cual porque vamos a trabajar con otro tipo de moneda
-			formas += contarAux(objetivo - sumaActual, cantidades, valores, indiceMoneda - 1);
+			formas += contarAux(objetivo - sumaActual, monedas, valores, indiceMoneda - 1);
 		}
 
 		return formas;
